@@ -1,14 +1,17 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+'use strict'
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('send', function(data){
-    io.emit('message', data);
-  });
-});
+// Modules
+const app = require('express')()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+io.on('connection', socket => {
+  console.log('User connected')
+  socket.on('send', data => {
+    io.emit('message', data)
+  })
+})
+
+http.listen(3000, () => {
+  console.log('listening on *:3000')
+})
